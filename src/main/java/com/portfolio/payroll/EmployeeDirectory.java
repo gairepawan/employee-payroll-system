@@ -42,4 +42,11 @@ public final class EmployeeDirectory {
     }
 
     public int size() { return employees.size(); }
+
+    /** Removes an employee by ID, or signals an unknown employee. */
+    public Employee remove(String id) {
+        Employee removed = employees.remove(id);
+        if (removed == null) throw new NoSuchElementException("Employee not found: " + id);
+        return removed;
+    }
 }
