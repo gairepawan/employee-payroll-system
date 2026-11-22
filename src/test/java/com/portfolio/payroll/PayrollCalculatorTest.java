@@ -60,4 +60,13 @@ class PayrollCalculatorTest {
         assertEquals(new BigDecimal("2000.00"), directory.totalGrossPay(
                 Map.of("1", new BigDecimal("40"), "2", BigDecimal.ZERO), BigDecimal.ZERO));
     }
+
+    @Test void removesEmployeesAndRejectsMissingIds() {
+        EmployeeDirectory directory = new EmployeeDirectory();
+        directory.add(hourly("E1", "Alex", "20"));
+        assertEquals("Alex", directory.remove("E1").name());
+        assertEquals(0, directory.size());
+        assertThrows(NoSuchElementException.class, () -> directory.find("E1"));
+        assertThrows(NoSuchElementException.class, () -> directory.remove("E1"));
+    }
 }
